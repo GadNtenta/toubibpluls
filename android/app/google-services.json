@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "890278117574",
+    "project_id": "toubibpluss",
+    "storage_bucket": "toubibpluss.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890278117574:android:d273204206cfcfcafe97c7",
+        "android_client_info": {
+          "package_name": "com.toubibplus.toubibplus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg_gaKnFNjzGPuiotyvY1bHJQ7zEDE_Cc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
