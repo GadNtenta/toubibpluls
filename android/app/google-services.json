@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "528722351527",
+    "project_id": "toubibplus-bdd-e790a",
+    "storage_bucket": "toubibplus-bdd-e790a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528722351527:android:0390fa918ce0e78457d282",
+        "android_client_info": {
+          "package_name": "com.toubibplus.toubibplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "528722351527-7b794437mortns92svv84f5gn4qtcaia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg65WZADH-n-HAoHeHZxgxOxmK7IyIi0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "528722351527-7b794437mortns92svv84f5gn4qtcaia.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "528722351527-jqtp1gt3jajcrac5088at11r93cu0dbv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.toubibplus.toubibplus"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
