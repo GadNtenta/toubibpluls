@@ -189,7 +189,14 @@ class _ProfilePageState extends State<ProfilePage> {
             icon: 'assets/Icons/Danger_Circle.svg',
             text: 'Déconnexion',
             press: () {
-              signOutAndNavigate(context, (message) => showToast(message: 'Déconnexion effectuée avec succès'));
+              signOutAndNavigate(context, showToast);
+              // Navigation vers l'écran de connexion
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Connexion(),
+                ),
+              );
             },
           ),
         ],

@@ -1,18 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:toubibplus/frontend/messages/toast.dart';
+import 'package:toubibplus/frontend/pages/Home.dart';
 
 class InscriptionService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<void> signUp(String email, String password) async {
+  Future<void> signUp(BuildContext context, String email, String password) async {
     try {
       // Vérifier si l'utilisateur existe déjà
       bool userExists = await _checkUserExists(email);
       if (userExists) {
         // Afficher un message d'erreur si l'utilisateur existe déjà
         showToast(message: "Cet utilisateur existe déjà.");
+
         return;
       }
 
@@ -27,21 +30,26 @@ class InscriptionService {
         email: email,
         password: password,
       );
+      // Générer un ID pour le patient
+      String patientId = userCredential.user!.uid;
 
       // Enregistrer les données dans la collection 'users' pour chaque utilisateur
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
-        'email': email,
-        'password': password,
-      });
-
-      // Enregistrer les données dans la collection 'patients' pour chaque utilisateur
-      await _firestore.collection('users').doc(userCredential.user!.uid).collection('patients').doc(userCredential.user!.uid).set({
+        'users': 'patient',
         'email': email,
         'password': password,
       });
 
       // Afficher un message de succès
       showToast(message: "Inscription réussie");
+
+      // Naviguer vers la page d'accueil
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Accueil(),
+        ),
+      );
 
     } catch (e) {
       // Gérer les erreurs d'inscription ici

@@ -17,6 +17,7 @@ class _InscriptionState extends State<Inscription> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   final InscriptionService _inscriptionService = InscriptionService();
+  bool _isSigningUp = false;
 
   @override
   void dispose() {
@@ -79,7 +80,7 @@ class _InscriptionState extends State<Inscription> {
                 ),
               ),
               const SizedBox(height: 20),
-              buildLoginButton(context),
+              buildSignUpButton(context),
               const SizedBox(height: 20),
             ],
           ),
@@ -88,10 +89,10 @@ class _InscriptionState extends State<Inscription> {
     );
   }
 
-  Center buildLoginButton(BuildContext context) {
+  Center buildSignUpButton(BuildContext context) {
     return Center(
       child: GestureDetector(
-        onTap: _signUp,
+        onTap: _isSigningUp ? null : _signUp,
         child: Container(
           padding: const EdgeInsets.symmetric(
             vertical: 20,
@@ -103,7 +104,9 @@ class _InscriptionState extends State<Inscription> {
             color: const Color(0xFF66DED4),
             borderRadius: BorderRadius.circular(30),
           ),
-          child: const Text(
+          child: _isSigningUp
+              ? const CircularProgressIndicator(color: Colors.white)
+              : const Text(
             "Inscription",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -117,26 +120,32 @@ class _InscriptionState extends State<Inscription> {
   }
 
   void _signUp() async {
-    String email = _emailController.text;
+    setState(() {
+      _isSigningUp = true;
+    });
+
+    String email = _emailController.text.trim();
     String password = _passwordController.text;
 
     try {
-      await _inscriptionService.signUp(email, password);
-      showToast(message: 'Inscription réussie');
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Accueil(),
-        ),
-      );
+      await _inscriptionService.signUp(context, email, password);
     } catch (e) {
       print(e);
       if (e.toString().contains('Cet utilisateur existe déjà')) {
-        // Formater les zones de saisie si l'utilisateur existe déjà
+        showToast(message: 'Cet utilisateur existe déjà.');
         _emailController.clear();
         _passwordController.clear();
+      } else if (e.toString().contains('Le mot de passe doit contenir au moins 5 caractères.')) {
+        showToast(message: 'Le mot de passe doit contenir au moins 5 caractères.');
+        _passwordController.clear();
+      } else {
+        showToast(message: 'Erreur lors de l\'inscription');
       }
-      showToast(message: 'Erreur lors de l\'inscription');
+    } finally {
+      setState(() {
+        _isSigningUp = false;
+      });
     }
   }
+
 }

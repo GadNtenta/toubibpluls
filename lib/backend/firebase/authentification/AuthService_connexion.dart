@@ -68,10 +68,10 @@ class AuthService {
               'date_naissance': '', // Google ne fournit pas cette info directement
               'profile': user.photoURL,
               'etat': 'connecter',
-              'role': 'patient',
+              'user': 'patient',
             });
 
-            await userRef.collection('patients').doc(user.uid).set({
+            /*await userRef.collection('patients').doc(user.uid).set({
               'nom': googleSignInAccount.displayName?.split(' ')[0] ?? '',
               'prenom': googleSignInAccount.displayName?.split(' ').skip(1).join(' ') ?? '',
               'adresse': '',
@@ -81,7 +81,7 @@ class AuthService {
               'email': user.email,
               'profile': user.photoURL,
               'id': 'Pat-${user.uid}',
-            });
+            });*/
           }
         }
 

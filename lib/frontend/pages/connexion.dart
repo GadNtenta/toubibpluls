@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:toubibplus/backend/firebase/authentification/AuthService_connexion.dart';
@@ -62,8 +63,6 @@ class _ConnexionState extends State<Connexion> {
         context,
         MaterialPageRoute(builder: (context) => Accueil()),
       );
-    } else {
-      showToast(message: "Erreur lors de la connexion avec Google.");
     }
   }
 
