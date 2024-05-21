@@ -10,11 +10,11 @@
 		</data>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<data>
-		amGKz4h4Ni3Auqk5lp40ZNaIBko=
+		g6qO/O+JD1TSoywNatQuYnf/QGU=
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		l7I6jOBD25XPIZULzKcX8eaF2yM=
+		Zc4vuZ1o9JUiwTMKvoCaAEEbevA=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -120,6 +120,14 @@
 		<data>
 		ZkI3Em0UBCBsQwDNHPUU0X7X6Nk=
 		</data>
+		<key>flutter_assets/assets/Icons/Search.svg</key>
+		<data>
+		XwgKQJ5NSWGQ3QiyiCNn+veivh0=
+		</data>
+		<key>flutter_assets/assets/Icons/Star.svg</key>
+		<data>
+		XmI96woRovgL5G48AkG9w3H3Tk4=
+		</data>
 		<key>flutter_assets/assets/Icons/Syringe.svg</key>
 		<data>
 		zHLJRy15ayQMtA0HTeend6skRdI=
@@ -155,6 +163,10 @@
 		<key>flutter_assets/assets/Icons/flamme.svg</key>
 		<data>
 		ytsDkJzYCayvywAfZEKN5Do54QE=
+		</data>
+		<key>flutter_assets/assets/Icons/location.svg</key>
+		<data>
+		maVwSED7piWo2TqY+FQqO+JURuQ=
 		</data>
 		<key>flutter_assets/assets/Icons/lock.svg</key>
 		<data>
@@ -298,7 +310,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		QkseroQ6ViXJ8HRh8X9oAX920BI=
+		Gw7m+GasXqDeEOksbLRqQTbOpTg=
 		</data>
 		<key>flutter_assets/packages/awesome_dialog/assets/flare/error.flr</key>
 		<data>
@@ -427,14 +439,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ov72qDG5mv/KokB2Oy/LT+GwpLDqCQRQ8rrLJiRHyhQ=
+			1i3Dup/aipZdj8srZlRQNLtjD83jazEtmpDNl+Ie9Is=
 			</data>
 		</dict>
 		<key>flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			nzZMgkgVpUEn71tkRZPI7jk/HrdcWGm7whDBdRhAJIQ=
+			xcbHsKklOJUISWiaNsnWTKMH6tRX/BXIMYRXvQNBHzg=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -619,6 +631,20 @@
 			7EHcPVoVJWNTBeARKYw2v+pixCUow5JP4ykbBDVvVnA=
 			</data>
 		</dict>
+		<key>flutter_assets/assets/Icons/Search.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			eplCwcWGw632hCdI889mjS3LekwE/P4gwVILunwZGwQ=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/Icons/Star.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			hKJhG8tTm5ojAv15DgIuHnN+oJscdryUBKeHN4nTKqM=
+			</data>
+		</dict>
 		<key>flutter_assets/assets/Icons/Syringe.svg</key>
 		<dict>
 			<key>hash2</key>
@@ -680,6 +706,13 @@
 			<key>hash2</key>
 			<data>
 			gKG8zZ2zCSK/fwDCl1uuyZmsTD77U582zrCk2vh+0Ek=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/Icons/location.svg</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			BNhfw6IYlmoEoI8R+3l17RTLbgq7HLkbpYEPuBfkzi8=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/Icons/lock.svg</key>
@@ -931,7 +964,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ygfxEgKG2v+FjaYhQb2lRIY5twSet1PXF4/fODgJSRw=
+			gduQDUAkkvOwrscL94d6FIB6k9csgcpbN04K8wuvaW4=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/awesome_dialog/assets/flare/error.flr</key>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">528722351527-7b794437mortns92svv84f5gn4qtcaia.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">528722351527</string>
+    <string name="google_api_key" translatable="false">AIzaSyAg65WZADH-n-HAoHeHZxgxOxmK7IyIi0Q</string>
+    <string name="google_app_id" translatable="false">1:528722351527:android:0390fa918ce0e78457d282</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAg65WZADH-n-HAoHeHZxgxOxmK7IyIi0Q</string>
+    <string name="google_storage_bucket" translatable="false">toubibplus-bdd-e790a.appspot.com</string>
+    <string name="project_id" translatable="false">toubibplus-bdd-e790a</string>
+</resources>

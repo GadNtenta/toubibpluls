@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:lorem_ipsum_generator/lorem_ipsum_generator.dart';
@@ -11,7 +10,9 @@ import '../composants/image_icone/imageicone.dart';
 import 'docteur_screen.dart';
 
 class Detailsdocteurs extends StatefulWidget {
-  const Detailsdocteurs({Key? key}) : super(key: key);
+  final String doctorId;
+
+  const Detailsdocteurs({required this.doctorId, Key? key}) : super(key: key);
 
   @override
   _DetailsdocteursState createState() => _DetailsdocteursState();
@@ -20,18 +21,33 @@ class Detailsdocteurs extends StatefulWidget {
 class _DetailsdocteursState extends State<Detailsdocteurs> {
   DateTime? selectedDate;
   String? selectedTime;
-
-  CalendarFormat _calendarFormat =
-      CalendarFormat.week; // Réglage pour afficher uniquement la semaine
+  CalendarFormat _calendarFormat = CalendarFormat.week; // Réglage pour afficher uniquement la semaine
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
   TimeOfDay? _selectedTime;
+
+  Map<String, dynamic>? doctorDetails;
 
   @override
   void initState() {
     super.initState();
     // Initialise les données de localisation pour la langue française
     initializeDateFormatting('fr_FR', null);
+    // Récupère les détails du docteur
+    _getDoctorDetails();
+  }
+
+  Future<void> _getDoctorDetails() async {
+    try {
+      DocumentSnapshot doc = await FirebaseFirestore.instance.collection('docteurs').doc(widget.doctorId).get();
+      if (doc.exists) {
+        setState(() {
+          doctorDetails = doc.data() as Map<String, dynamic>;
+        });
+      }
+    } catch (e) {
+      // Handle error
+    }
   }
 
   @override
@@ -43,16 +59,13 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             // Navigue vers la page précédente (Docteurs) en cliquant sur la flèche de retour
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const Docteurs(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),
-      body: Column(
+      body: doctorDetails == null
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
@@ -63,12 +76,11 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
                     // Section pour afficher les détails du médecin
                     Row(
                       children: [
-                        // code  pour l'image du médecin
+                        // Code pour l'image du médecin
                         Container(
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage(
-                                  'assets/Images/profil/medecin/medecin.png'),
+                              image: NetworkImage(doctorDetails!['profileURL'] ?? 'assets/Images/profil/medecin/medecin.png'),
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -76,17 +88,17 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
                           height: 111,
                         ),
                         const SizedBox(width: 10),
-                        const Column(
+                        Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // code existant pour les informations du médecin
+                            // Code existant pour les informations du médecin
                             Text(
-                              'Dr. Nom du Médecin',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              'Dr. ${doctorDetails!['noms'] ?? 'Nom du Médecin'}',
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
-                            Text('Spécialisation du Médecin'),
-                            Text('Note du Médecin'),
-                            Text('Nom de l\'hôpital'),
+                            Text(doctorDetails!['specialisation'] ?? 'Spécialisation du Médecin'),
+                            Text('Note: ${doctorDetails!['note'] ?? 'Note du Médecin'}'),
+                            Text(doctorDetails!['location'] ?? 'Nom de l\'hôpital'),
                           ],
                         ),
                       ],
@@ -135,23 +147,19 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
                           weekendTextStyle: const TextStyle(color: Colors.grey),
                           outsideDaysVisible: false,
                           todayDecoration: BoxDecoration(
-                            //color: Colors.blue,
+                            // Color: Colors.blue,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           selectedDecoration: BoxDecoration(
-                            color: const Color(
-                                0xFF66DED4), // Arrière-plan vert pour la date sélectionnée
+                            color: const Color(0xFF66DED4), // Arrière-plan vert pour la date sélectionnée
                             border: Border.all(
-                                width: 2,
-                                color: const Color(0xFF66DED4)), // Bordure verte
+                                width: 2, color: const Color(0xFF66DED4)), // Bordure verte
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          todayTextStyle: const TextStyle(
-                              color: Colors.blue), // Style pour la date du jour
+                          todayTextStyle: const TextStyle(color: Colors.blue), // Style pour la date du jour
                         ),
                         daysOfWeekStyle: const DaysOfWeekStyle(
-                          weekendStyle: TextStyle(
-                              color: Colors.grey), // Couleur du week-end
+                          weekendStyle: TextStyle(color: Colors.grey), // Couleur du week-end
                         ),
                         selectedDayPredicate: (day) {
                           return isSameDay(_selectedDay, day);
@@ -162,8 +170,7 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
                   ],
                 ),
               ),
-
-          ),
+            ),
           ),
           // Ligne de séparation entre le calendrier et la section des heures de rendez-vous
           Container(
@@ -281,7 +288,7 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
   // Fonction pour effectuer la prise de rendez-vous
   void _takeAppointment(BuildContext context) {
     if (_selectedDay != null && _selectedTime != null) {
-      //espâce des mesures pour enregistrer le rendez-vous
+      // Prépare les données pour enregistrer le rendez-vous
       DateTime selectedDateTime = DateTime(
         _selectedDay.year,
         _selectedDay.month,

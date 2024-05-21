@@ -20,6 +20,7 @@ class RepresentationDocteur extends StatelessWidget {
         } else {
           final docteuritems = snapshot.data!.docs.map((doc) {
             return {
+              'id': doc.id, // Ajout de l'ID du document
               'name': doc['noms'],
               'profiles': doc['profileURL'],
               'specialisation': doc['specialisation'],
@@ -35,11 +36,11 @@ class RepresentationDocteur extends StatelessWidget {
                 return SizedBox(
                   child: GestureDetector(
                     onTap: () {
-                      // Naviguer vers les détails du docteur
+                      // Naviguer vers les détails du docteur en passant l'ID du document
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Detailsdocteurs(),
+                          builder: (context) => Detailsdocteurs(doctorId: item['id']),
                         ),
                       );
                     },
@@ -167,11 +168,11 @@ class ToutlesDocteurs extends StatelessWidget {
                 child: SizedBox(
                   child: GestureDetector(
                     onTap: () {
-                      // Naviguer vers les détails du docteur
+                      // Naviguer vers les détails du docteur avec l'ID du document
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Detailsdocteurs(),
+                          builder: (context) => Detailsdocteurs(doctorId: doc.id),
                         ),
                       );
                     },
@@ -186,60 +187,47 @@ class ToutlesDocteurs extends StatelessWidget {
                       child: Row(
                         children: [
                           // Photos de profils du docteurs
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 111,
-                                height: 111,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(11.13),
-                                  image: DecorationImage(
-                                    image: NetworkImage(
-                                      item['profiles'] ?? '',
-                                    ),
-                                    fit: BoxFit.cover,
-                                  ),
+                          Container(
+                            width: 111,
+                            height: 111,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(11.13),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  item['profileURL'] ?? '',
                                 ),
+                                fit: BoxFit.cover,
                               ),
-                            ],
+                            ),
                           ),
                           // Informations
-                          Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  //1ere colonne réservée aux identités du docteurs
-                                  children: [
-                                    Text(
-                                      item['noms'] ?? '', // Affichez le nom du docteur
-                                      textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    Text(
-                                      item['specialisation'] ?? '',
-                                      textAlign: TextAlign.left, // Affichez la spécialisation
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Row(
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                //2eme colonne réservée à la note du médecin et à la distance entre le client et le médecin
                                 children: [
+                                  //1ere colonne réservée aux identités du docteurs
+                                  Text(
+                                    item['noms'] ?? '', // Affichez le nom du docteur
+                                    textAlign: TextAlign.left,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  Text(
+                                    item['specialisation'] ?? '',
+                                    textAlign: TextAlign.left, // Affichez la spécialisation
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  //2eme colonne réservée à la note du médecin et à la distance entre le client et le médecin
                                   Row(
                                     children: [
                                       const ImageIcones(
@@ -254,10 +242,7 @@ class ToutlesDocteurs extends StatelessWidget {
                                           fontSize: 12,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
+                                      const SizedBox(width: 8),
                                       const ImageIcones(
                                         ImageIcone: "assets/Icons/location.svg",
                                         width: 12.0,
@@ -274,7 +259,7 @@ class ToutlesDocteurs extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       ),

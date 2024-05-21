@@ -1,0 +1,4 @@
+/Users/mac/Library/Android/sdk/cmake/3.18.1/bin/ninja \
+  -C \
+  /Users/mac/.pub-cache/hosted/pub.dev/rive_common-0.4.8/android/.cxx/Debug/614sr4g4/x86 \
+  rive_text
