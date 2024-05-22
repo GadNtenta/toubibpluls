@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:toubibplus/frontend/messages/toast.dart';
 import 'package:toubibplus/frontend/pages/Home.dart';
@@ -15,7 +16,6 @@ class InscriptionService {
       if (userExists) {
         // Afficher un message d'erreur si l'utilisateur existe déjà
         showToast(message: "Cet utilisateur existe déjà.");
-
         return;
       }
 
@@ -38,6 +38,7 @@ class InscriptionService {
         'users': 'patient',
         'email': email,
         'password': password,
+        'id': patientId, // Enregistrez l'ID de l'utilisateur
       });
 
       // Afficher un message de succès
@@ -53,7 +54,9 @@ class InscriptionService {
 
     } catch (e) {
       // Gérer les erreurs d'inscription ici
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
       showToast(message: "Erreur lors de l'inscription");
     }
   }
