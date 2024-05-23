@@ -6,15 +6,15 @@
 	<dict>
 		<key>Info.plist</key>
 		<data>
-		QJETILOPBwjioLrmTLs9PY5FL+s=
+		h5OB7aKzS5WR9SemvZAyN6FEkJs=
 		</data>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<data>
-		g6qO/O+JD1TSoywNatQuYnf/QGU=
+		rzW9Z3TYaJlrMk3rKy04dXwCT48=
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		Zc4vuZ1o9JUiwTMKvoCaAEEbevA=
+		8CidAH0wFyrMOpPkEz1CLTcqooE=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
-		JVOFxEhQNTBV1y3WNK+oO1/9ep0=
+		jj51NBIfjJN6Vqrbqg1XQFROLt4=
 		</data>
 		<key>flutter_assets/assets/Icons/Ambulance.svg</key>
 		<data>
@@ -300,6 +300,22 @@
 		<data>
 		h1zwzs1ke88i551jPYaMGx7Jjfo=
 		</data>
+		<key>flutter_assets/assets/squelettons/avatar-man-b_w.png</key>
+		<data>
+		2y9xUUkHoKqBNdEFwkg89xDwuvo=
+		</data>
+		<key>flutter_assets/assets/squelettons/avatar-man-toubib.png</key>
+		<data>
+		jtKKgBpctGdI1ytlpEbLO99zqcY=
+		</data>
+		<key>flutter_assets/assets/squelettons/avatar-woman-b_w.png</key>
+		<data>
+		xq2G4nTJQLb9LhuMuRd6EVDlasA=
+		</data>
+		<key>flutter_assets/assets/squelettons/avatar-woman-toubib.png</key>
+		<data>
+		eHT6+C6KTF9dWXExQsyVVH/s/98=
+		</data>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<data>
 		/CUoTuPQqqdexfyOT9lpJhV+2MQ=
@@ -310,7 +326,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		C5ofT/1VPiPDfcGwsag2417tUOA=
+		bTO2bVb7QbyXkt7oqCQhieGnwZw=
 		</data>
 		<key>flutter_assets/packages/awesome_dialog/assets/flare/error.flr</key>
 		<data>
@@ -439,14 +455,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1i3Dup/aipZdj8srZlRQNLtjD83jazEtmpDNl+Ie9Is=
+			AbkwXjOz1ciuyPlU56zw8hdvVHo2vXU8mLynWG+E9Uk=
 			</data>
 		</dict>
 		<key>flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			xcbHsKklOJUISWiaNsnWTKMH6tRX/BXIMYRXvQNBHzg=
+			eU1u5lCEco5FVTg6gWktqxUvSGMXgej7pNov7o4cpls=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -460,7 +476,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LBXig8xZxQZpAsJWA5nr0SeeIHKbZqJmLldYr5IP9Ng=
+			YsFE/JFu3gzkwaRSRA4/tnFgu6ihE6nO2cq6v92pt8E=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/Icons/Ambulance.svg</key>
@@ -946,6 +962,34 @@
 			chlUfuJTNMusD+SzrPC/Yx5I67YixxrwOO2qplLGCHU=
 			</data>
 		</dict>
+		<key>flutter_assets/assets/squelettons/avatar-man-b_w.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			WwBA88nPdcMTXtYQdzPCLxqMpgeKAO7NOvGngJ8ZRMY=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/squelettons/avatar-man-toubib.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			DjfjDm9jpB0/v8xU4JB82cMVurRTE/lzFKWTLvI2Nbs=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/squelettons/avatar-woman-b_w.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			3RvuKKUGr30HfaAWF0rPEKJJ6fS0TJsEyLckkEDZ3Qg=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/squelettons/avatar-woman-toubib.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			A3YD1/nQlX8bFxQRjq8ipvG1J/Kzsh64AW+AVz8+znY=
+			</data>
+		</dict>
 		<key>flutter_assets/fonts/MaterialIcons-Regular.otf</key>
 		<dict>
 			<key>hash2</key>
@@ -964,7 +1008,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			x37sh9GPIoJhCF47q7ltEN7+ft1dFUqI/hyAV+MXE60=
+			vwLKW9lXFd2v5jJOwb3tHc3tbV6Mlp/dLICAwBNQVy4=
 			</data>
 		</dict>
 		<key>flutter_assets/packages/awesome_dialog/assets/flare/error.flr</key>

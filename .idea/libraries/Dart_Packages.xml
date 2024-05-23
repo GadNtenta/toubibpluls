@@ -653,6 +653,13 @@
             </list>
           </value>
         </entry>
+        <entry key="shimmer">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/shimmer-3.0.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="simple_gesture_detector">
           <value>
             <list>
@@ -893,6 +900,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/quickalert-1.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/rive-0.13.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/rive_common-0.4.8/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/shimmer-3.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/simple_gesture_detector-0.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/source_span-1.10.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/sprintf-7.0.0/lib" />

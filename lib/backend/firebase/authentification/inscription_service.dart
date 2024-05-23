@@ -1,9 +1,12 @@
+// Inscription_service.dart
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:toubibplus/frontend/messages/toast.dart';
 import 'package:toubibplus/frontend/pages/Home.dart';
+import '../../../frontend/pages/user_connecter.dart';
 
 class InscriptionService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -32,6 +35,7 @@ class InscriptionService {
       );
       // Générer un ID pour le patient
       String patientId = userCredential.user!.uid;
+      globalUserID = patientId; // Mettez à jour la variable globale
 
       // Enregistrer les données dans la collection 'users' pour chaque utilisateur
       await _firestore.collection('users').doc(userCredential.user!.uid).set({

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../../../frontend/pages/user_connecter.dart';
+
 class DatabaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -19,6 +21,7 @@ class DatabaseService {
         'appointmentDateTime': appointmentDateTime,
         'status': 'avenir',
       });
+      globalUserID = userId;
     } catch (e) {
       // Gérer les erreurs éventuelles ici
       print(e.toString());

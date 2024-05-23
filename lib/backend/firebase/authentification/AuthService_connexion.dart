@@ -1,9 +1,13 @@
+// AuthService_connexion.dart
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:toubibplus/frontend/messages/toast.dart';
+
+import '../../../frontend/pages/user_connecter.dart'; // Importez le fichier global_var
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -15,6 +19,7 @@ class AuthService {
       if (user != null) {
         DocumentSnapshot userDoc = await _firestore.collection('users').doc(user.uid).get();
         if (userDoc.exists) {
+          globalUserID = user.uid; // Mettez à jour la variable globale
           return user.uid;
         }
       }
@@ -36,6 +41,7 @@ class AuthService {
 
       // Vérifier l'utilisateur dans Firestore
       DocumentSnapshot userDoc = await _firestore.collection('users').doc(user!.uid).get();
+      globalUserID = user.uid; // Mettez à jour la variable globale
 
       if (!userDoc.exists) {
         showToast(message: "L'utilisateur n'existe pas.");
@@ -76,6 +82,7 @@ class AuthService {
 
         // Obtenir l'ID de l'utilisateur
         String userId = user!.uid;
+        globalUserID = userId; // Mettez à jour la variable globale
 
         // Enregistrer les informations de l'utilisateur dans Firestore
         if (user != null) {

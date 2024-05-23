@@ -53,6 +53,7 @@ dependencies:
   fluttertoast: ^8.2.4
   image_picker: ^1.0.8
   awesome_dialog: ^3.2.0
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,7 @@ flutter:
       - assets/Images/
       - assets/Images/profil/medecin/
       - assets/Logos/
+      - assets/squelettons/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

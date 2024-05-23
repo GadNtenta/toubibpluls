@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:toubibplus/frontend/animations/skeleton/skeleton_repres_docteurs_home.dart';
+import '../../animations/skeleton/skeleton_repres_docteurs_docteurspage.dart';
 import '../../composants/image_icone/imageicone.dart';
 import '../../pages/details_docteurs_page.dart';
 
@@ -12,7 +15,7 @@ class RepresentationDocteur extends StatelessWidget {
       future: FirebaseFirestore.instance.collection('docteurs').get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return SkeletonScreens.buildSkeletonScreen();
         } else if (snapshot.hasError) {
           return const Center(child: Text('Une erreur est survenue'));
         } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -140,7 +143,6 @@ class RepresentationDocteur extends StatelessWidget {
   }
 }
 
-
 class ToutlesDocteurs extends StatelessWidget {
   const ToutlesDocteurs({super.key});
 
@@ -151,7 +153,9 @@ class ToutlesDocteurs extends StatelessWidget {
         stream: FirebaseFirestore.instance.collection('docteurs').snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Column(
+              children: List.generate(6, (index) => const SkeletonDocteur()),
+            );
           } else if (snapshot.hasError) {
             return Center(child: Text('Erreur : ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
@@ -168,7 +172,6 @@ class ToutlesDocteurs extends StatelessWidget {
                 child: SizedBox(
                   child: GestureDetector(
                     onTap: () {
-                      // Naviguer vers les détails du docteur avec l'ID du document
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -207,7 +210,6 @@ class ToutlesDocteurs extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  //1ere colonne réservée aux identités du docteurs
                                   Text(
                                     item['noms'] ?? '', // Affichez le nom du docteur
                                     textAlign: TextAlign.left,
@@ -224,10 +226,7 @@ class ToutlesDocteurs extends StatelessWidget {
                                       color: Colors.grey,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  //2eme colonne réservée à la note du médecin et à la distance entre le client et le médecin
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       const ImageIcones(
