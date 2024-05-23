@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import FirebaseAuth
 import 'package:toubibplus/frontend/composants/tableau_rdv.dart';
 import '../composants/image_icone/imageicone.dart';
 import 'Home.dart';
+import 'connexion.dart';
 import 'maps_screen.dart';
 import 'message_screen.dart';
 import 'profil_screen.dart';
 
 class RdvPage extends StatefulWidget {
-  const RdvPage({Key? key}) : super(key: key);
+  const RdvPage({super.key});
 
   @override
   State<RdvPage> createState() => _RdvPageState();
@@ -71,13 +73,57 @@ class _RdvPageState extends State<RdvPage> {
           ),
         ],
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(12.0),
-        child: Column(
-          children: [
-            TableauRDV(),
-          ],
-        ),
+      body: FutureBuilder<User?>(
+        future: FirebaseAuth.instance.authStateChanges().first,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+
+          User? user = snapshot.data;
+
+          if (user == null) {
+            // L'utilisateur n'est pas connecté
+            // Afficher une alerte ou une snackbar pour informer l'utilisateur
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text('Erreur'),
+                  content: const Text('Une erreur est survenue. Veuillez vous connecter pour accéder à cette page.'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Connexion(),
+                          ),
+                        );
+                      },
+                      child: const Text('Se connecter'),
+                    ),
+                  ],
+                ),
+              );
+            });
+
+            return const SizedBox.shrink(); // Retourne un widget vide
+          }
+
+          // L'utilisateur est connecté, afficher le tableau des rendez-vous
+          return Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              children: [
+                Expanded(child: TableauRDV(userId: user.uid)), // Encapsuler dans un Expanded
+              ],
+            ),
+          );
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: const Color(0xFF66DED4),

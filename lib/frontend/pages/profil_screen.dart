@@ -82,7 +82,7 @@ class _ProfilePageState extends State<ProfilePage> {
             fit: StackFit.expand,
             children: [
               const CircleAvatar(
-                backgroundImage: AssetImage('assets/Images/profil/medecin/Avatar.png'),
+                backgroundImage: AssetImage('assets/squelettons/avatar-man-b_w.png'),
               ),
               Positioned(
                 right: -12,

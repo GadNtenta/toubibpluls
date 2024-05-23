@@ -36,9 +36,9 @@ class Docteurs extends StatelessWidget {
         ),
 
         //scrollDirection: Axis.horizontal,
-        body: SingleChildScrollView(
+        body: const SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: EdgeInsets.all(12.0),
             child: ToutlesDocteurs(),
           ),
         ));

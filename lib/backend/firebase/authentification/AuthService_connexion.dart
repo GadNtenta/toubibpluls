@@ -16,7 +16,9 @@ class AuthService {
         DocumentSnapshot userDoc = await _firestore.collection('users').doc(user.uid).get();
         if (userDoc.exists) {
           return user.uid;
+
         }
+
       }
       return null;
     } catch (e) {

@@ -7,6 +7,7 @@ import 'package:quickalert/quickalert.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:toubibplus/backend/firebase/Firestore/rdv/Enregistrement_rdv.dart';
 import 'package:toubibplus/backend/firebase/authentification/AuthService_connexion.dart';
+import '../animations/skeleton/skeleton_repres_docteurs_detailsdocteurs.dart';
 import '../composants/image_icone/imageicone.dart';
 
 class Detailsdocteurs extends StatefulWidget {
@@ -64,230 +65,231 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
         ),
       ),
       body: doctorDetails == null
-          ? const Center(child: CircularProgressIndicator())
+          ? const SkeletonLoader() // Utiliser le SkeletonLoader pendant le chargement
           : Column(
-          children: [
-      Expanded(
-      child: SingleChildScrollView(
-      child: Padding(
-          padding: const EdgeInsets.all(16.0),
-      child: Column(
         children: [
-          // Section pour afficher les détails du médecin
-          Row(
-            children: [
-              // Code pour l'image du médecin
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(doctorDetails!['profileURL'] ?? 'assets/Images/profil/medecin/medecin.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                width: 111,
-                height: 111,
-              ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Code existant pour les informations du médecin
-                  Text(
-                    'Dr. ${doctorDetails!['noms'] ?? 'Nom du Médecin'}',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(doctorDetails!['specialisation'] ?? 'Spécialisation du Médecin',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
-                      color: Color(0xFFADADAD),
-                    ),
-                  ),
-                  const SizedBox(height: 5),
-                  Container(
-                    color: const Color(0xFFE8F3F1),
-                    child: Row(
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    // Section pour afficher les détails du médecin
+                    Row(
                       children: [
-                        const ImageIcones(
-                          ImageIcone: "assets/Icons/Star.svg",
-                          width: 12.0,
-                          height: 12.0,
+                        // Code pour l'image du médecin
+                        Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(doctorDetails!['profileURL'] ?? 'assets/Images/profil/medecin/medecin.png'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          width: 111,
+                          height: 111,
                         ),
-                        const SizedBox(width: 4),
-                        Text('${doctorDetails!['note'] ?? 'Note du Médecin'}'),
+                        const SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Code existant pour les informations du médecin
+                            Text(
+                              'Dr. ${doctorDetails!['noms'] ?? 'Nom du Médecin'}',
+                              style: const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 3),
+                            Text(
+                              doctorDetails!['specialisation'] ?? 'Spécialisation du Médecin',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                                color: Color(0xFFADADAD),
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Container(
+                              color: const Color(0xFFE8F3F1),
+                              child: Row(
+                                children: [
+                                  const ImageIcones(
+                                    ImageIcone: "assets/Icons/Star.svg",
+                                    width: 12.0,
+                                    height: 12.0,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text('${doctorDetails!['note'] ?? 'Note du Médecin'}'),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 3),
+                            Row(
+                              children: [
+                                const ImageIcones(
+                                  ImageIcone: "assets/Icons/location.svg",
+                                  width: 12.0,
+                                  height: 12.0,
+                                ),
+                                const SizedBox(width: 4),
+                                Text(doctorDetails!['hopital'] ?? 'Nom de l\'hôpital'),
+                              ],
+                            ),
+                          ],
+                        ),
                       ],
                     ),
-                  ),
-                  const SizedBox(height: 3),
-                  Row(
-                    children: [
-                      const ImageIcones(
-                        ImageIcone: "assets/Icons/location.svg",
-                        width: 12.0,
-                        height: 12.0,
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'À propos',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            LoremIpsumGenerator.generate(paragraphs: 1),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 4),
-                      Text(doctorDetails!['hopital'] ?? 'Nom de l\'hôpital'),
-                    ],
-                  ),
-                ],
+                    ),
+                    const SizedBox(height: 20),
+                    // Calendrier pour choisir la date de rendez-vous
+                    SingleChildScrollView(
+                      child: TableCalendar(
+                        locale: 'fr_FR',
+                        firstDay: DateTime.utc(2023, 1, 1),
+                        lastDay: DateTime.utc(2090, 12, 31),
+                        focusedDay: _focusedDay,
+                        calendarFormat: _calendarFormat,
+                        onFormatChanged: (format) {
+                          setState(() {
+                            _calendarFormat = format;
+                          });
+                        },
+                        onDaySelected: (selectedDay, focusedDay) {
+                          if (selectedDay.isBefore(DateTime.now())) {
+                            QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.error,
+                              text: 'Zone inclicable',
+                            );
+                          } else {
+                            setState(() {
+                              _selectedDay = selectedDay;
+                              _focusedDay = focusedDay;
+                            });
+                          }
+                        },
+                        calendarStyle: CalendarStyle(
+                          defaultTextStyle: const TextStyle(color: Colors.black),
+                          weekendTextStyle: const TextStyle(color: Colors.grey),
+                          outsideDaysVisible: false,
+                          todayDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          selectedDecoration: BoxDecoration(
+                            color: const Color(0xFF66DED4), // Arrière-plan vert pour la date sélectionnée
+                            border: Border.all(
+                                width: 2, color: const Color(0xFF66DED4)), // Bordure verte
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          todayTextStyle: const TextStyle(color: Colors.blue), // Style pour la date du jour
+                        ),
+                        daysOfWeekStyle: const DaysOfWeekStyle(
+                          weekendStyle: TextStyle(color: Colors.grey), // Couleur du week-end
+                        ),
+                        selectedDayPredicate: (day) {
+                          return isSameDay(_selectedDay, day);
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                  ],
+                ),
               ),
-            ],
+            ),
           ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
+          // Ligne de séparation entre le calendrier et la section des heures de rendez-vous
+          Container(
+            height: 1, // Hauteur de la ligne de séparation
+            color: const Color(0xFF66DED4),
+          ),
+          // Section pour choisir l'heure de rendez-vous
+          Container(
+            color: Colors.white,
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  'À propos',
+                  'Choisir l\'heure de rendez-vous',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                    fontSize: 16,
                   ),
                 ),
                 const SizedBox(height: 10),
-                Text(
-                  LoremIpsumGenerator.generate(paragraphs: 1),
+                // Affiche les boutons pour choisir l'heure
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    for (int i = 9; i <= 11; i++) _buildTimeButton(i),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    for (int i = 13; i <= 15; i++) _buildTimeButton(i),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    for (int i = 18; i <= 20; i++) _buildTimeButton(i),
+                  ],
                 ),
               ],
             ),
           ),
           const SizedBox(height: 20),
-          // Calendrier pour choisir la date de rendez-vous
-          SingleChildScrollView(
-            child: TableCalendar(
-              locale: 'fr_FR',
-              firstDay: DateTime.utc(2023, 1, 1),
-              lastDay: DateTime.utc(2090, 12, 31),
-              focusedDay: _focusedDay,
-              calendarFormat: _calendarFormat,
-              onFormatChanged: (format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              },
-              onDaySelected: (selectedDay, focusedDay) {
-                if (selectedDay.isBefore(DateTime.now())) {
-                  QuickAlert.show(
-                    context: context,
-                    type: QuickAlertType.error,
-                    text: 'Zone inclicable',
-                  );
-                } else {
-                  setState(() {
-                    _selectedDay = selectedDay;
-                    _focusedDay = focusedDay;
-                  });
-                }
-              },
-              calendarStyle: CalendarStyle(
-                defaultTextStyle: const TextStyle(color: Colors.black),
-                weekendTextStyle: const TextStyle(color: Colors.grey),
-                outsideDaysVisible: false,
-                todayDecoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                selectedDecoration: BoxDecoration(
-                  color: const Color(0xFF66DED4), // Arrière-plan vert pour la date sélectionnée
-                  border: Border.all(
-                      width: 2, color: const Color(0xFF66DED4)), // Bordure verte
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                todayTextStyle: const TextStyle(color: Colors.blue), // Style pour la date du jour
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              const ImageIcones(
+                ImageIcone: 'assets/Icons/Message.svg',
+                width: 21.0,
+                height: 21.0,
               ),
-              daysOfWeekStyle: const DaysOfWeekStyle(
-                weekendStyle: TextStyle(color: Colors.grey), // Couleur du week-end
+              SizedBox(
+                width: 266,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: _selectedDay != null
+                      ? () => _takeAppointment(context)
+                      : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF66DED4),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  child: const Text(
+                    'Prendre rendez-vous',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
-              selectedDayPredicate: (day) {
-                return isSameDay(_selectedDay, day);
-              },
-            ),
+            ],
           ),
           const SizedBox(height: 5),
         ],
-      ),
-    ),
-    ),
-    ),
-            // Ligne de séparation entre le calendrier et la section des heures de rendez-vous
-            Container(
-              height: 1, // Hauteur de la ligne de séparation
-              color: const Color(0xFF66DED4),
-            ),
-            // Section pour choisir l'heure de rendez-vous
-            Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Choisir l\'heure de rendez-vous',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  // Affiche les boutons pour choisir l'heure
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      for (int i = 9; i <= 11; i++) _buildTimeButton(i),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      for (int i = 13; i <= 15; i++) _buildTimeButton(i),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      for (int i = 18; i <= 20; i++) _buildTimeButton(i),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const ImageIcones(
-                  ImageIcone: 'assets/Icons/Message.svg',
-                  width: 21.0,
-                  height: 21.0,
-                ),
-                SizedBox(
-                  width: 266,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: _selectedDay != null
-                        ? () => _takeAppointment(context)
-                        : null,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF66DED4),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                    ),
-                    child: const Text(
-                      'Prendre rendez-vous',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-          ],
       ),
     );
   }
@@ -386,4 +388,3 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
     }
   }
 }
-
