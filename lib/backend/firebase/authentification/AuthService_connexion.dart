@@ -21,7 +21,9 @@ class AuthService {
         if (userDoc.exists) {
           globalUserID = user.uid; // Mettez à jour la variable globale
           return user.uid;
+
         }
+
       }
       return null;
     } catch (e) {
