@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Import FirebaseAuth
 import 'package:toubibplus/frontend/composants/tableau_rdv.dart';
 import '../composants/image_icone/imageicone.dart';
 import 'Home.dart';
@@ -7,6 +7,7 @@ import 'connexion.dart';
 import 'maps_screen.dart';
 import 'message_screen.dart';
 import 'profil_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Import du package Firestore
 
 class RdvPage extends StatefulWidget {
   const RdvPage({super.key});
@@ -16,6 +17,58 @@ class RdvPage extends StatefulWidget {
 }
 
 class _RdvPageState extends State<RdvPage> {
+  String? _userId; // Variable pour stocker l'ID de l'utilisateur
+
+  @override
+  void initState() {
+    super.initState();
+    // Appel de la méthode pour récupérer l'ID de l'utilisateur
+    _getCurrentUserId();
+  }
+
+  // Méthode pour récupérer l'ID de l'utilisateur actuellement connecté
+  void _getCurrentUserId() {
+    // Utilisation de FirebaseAuth pour obtenir l'utilisateur actuellement connecté
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        _userId = user.uid; // Stockage de l'ID de l'utilisateur dans la variable _userId
+      });
+      _fetchUserAgendas(user.uid); // Appel de la méthode pour récupérer les données de la collection "agendas"
+    } else {
+      // L'utilisateur n'est pas connecté
+      // Gérer le cas où l'utilisateur n'est pas connecté selon les besoins de votre application
+    }
+  }
+
+  // Méthode pour récupérer les données de la collection "agendas" pour l'utilisateur actuel
+  void _fetchUserAgendas(String userId) {
+    FirebaseFirestore.instance
+        .collection('agenda')
+        .where('userId', isEqualTo: userId) // Filtrer les agendas par l'ID utilisateur
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      // Traiter les données récupérées ici
+      if (querySnapshot.docs.isNotEmpty) {
+        // Il y a des documents dans la collection "agendas" pour cet utilisateur
+        // Vous pouvez les traiter ici
+        // Par exemple, vous pouvez les stocker dans une liste pour une utilisation ultérieure
+        List<Map<String, dynamic>> userAgendas = [];
+        querySnapshot.docs.forEach((doc) {
+          userAgendas.add(doc.data() as Map<String, dynamic>);
+        });
+        // Vous pouvez utiliser ces données dans votre widget ici si nécessaire
+      } else {
+        // Aucun document dans la collection "agendas" pour cet utilisateur
+        // Gérer le cas où aucun agenda n'est trouvé pour cet utilisateur
+        print(' Aucun document dans la collection "agendas" pour cet utilisateur');
+      }
+    }).catchError((error) {
+      // Gérer les erreurs de récupération des données de Firestore
+      print('Error fetching user agendas: $error');
+    });
+  }
+
   int _selectedIndex = 3;
 
   void _onItemTapped(int index) {
@@ -73,57 +126,15 @@ class _RdvPageState extends State<RdvPage> {
           ),
         ],
       ),
-      body: FutureBuilder<User?>(
-        future: FirebaseAuth.instance.authStateChanges().first,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-
-          User? user = snapshot.data;
-
-          if (user == null) {
-            // L'utilisateur n'est pas connecté
-            // Afficher une alerte ou une snackbar pour informer l'utilisateur
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('Erreur'),
-                  content: const Text('Une erreur est survenue. Veuillez vous connecter pour accéder à cette page.'),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const Connexion(),
-                          ),
-                        );
-                      },
-                      child: const Text('Se connecter'),
-                    ),
-                  ],
-                ),
-              );
-            });
-
-            return const SizedBox.shrink(); // Retourne un widget vide
-          }
-
-          // L'utilisateur est connecté, afficher le tableau des rendez-vous
-          return Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              children: [
-                Expanded(child: TableauRDV(userId: user.uid)), // Encapsuler dans un Expanded
-              ],
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          children: [
+            Expanded(
+              child: TableauRDV(), // Encapsuler dans un Expanded
             ),
-          );
-        },
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: const Color(0xFF66DED4),

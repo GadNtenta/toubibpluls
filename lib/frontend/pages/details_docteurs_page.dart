@@ -7,6 +7,7 @@ import 'package:quickalert/quickalert.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:toubibplus/backend/firebase/Firestore/rdv/Enregistrement_rdv.dart';
 import 'package:toubibplus/backend/firebase/authentification/AuthService_connexion.dart';
+import 'package:toubibplus/frontend/composants/tableau_rdv.dart';
 import '../animations/skeleton/skeleton_repres_docteurs_detailsdocteurs.dart';
 import '../composants/image_icone/imageicone.dart';
 
@@ -151,6 +152,9 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
                             ),
                           ),
                           const SizedBox(height: 10),
+
+                          Text('${doctorDetails!['Description'] ?? 'Aucune description'}'),
+
                           Text(
                             LoremIpsumGenerator.generate(paragraphs: 1),
                           ),
@@ -356,6 +360,8 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
             doctorName: doctorDetails!['noms'] ?? 'Nom du Médecin',
             specialization: doctorDetails!['specialisation'] ?? 'Spécialisation du Médecin',
             hospital: doctorDetails!['hopital'] ?? 'Independant',
+            type : doctorDetails!['type'] ?? 'non-affilié',
+            prolileDocteur: doctorDetails!['profileURL'] ?? 'assets/Images/profil/medecin/medecin.png',
             userId: userId,
             appointmentDateTime: selectedDateTime,
           );
