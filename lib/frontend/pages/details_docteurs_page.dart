@@ -152,9 +152,7 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
                             ),
                           ),
                           const SizedBox(height: 10),
-                          Text(
-                            LoremIpsumGenerator.generate(paragraphs: 1),
-                          ),
+                          Text('${doctorDetails!['Description'] ?? 'Aucune description'}'),
                         ],
                       ),
                     ),
@@ -357,6 +355,8 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
             doctorName: doctorDetails!['noms'] ?? 'Nom du Médecin',
             specialization: doctorDetails!['specialisation'] ?? 'Spécialisation du Médecin',
             hospital: doctorDetails!['hopital'] ?? 'Independant',
+            type : doctorDetails!['type'] ?? 'non-affilié',
+            prolileDocteur: doctorDetails!['profileURL'] ?? 'assets/Images/profil/medecin/medecin.png',
             userId: userId,
             appointmentDateTime: selectedDateTime,
           );

@@ -67,7 +67,7 @@ class _TableauRDVState extends State<TableauRDV> {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No appointments found.'));
+            return const Center(child: Text('Aucun Rendez-Vous'));
           }
 
           List<Map<String, dynamic>> appointments = snapshot.data!;
@@ -171,8 +171,7 @@ class _TableauRDVState extends State<TableauRDV> {
     child: Icon(Icons.error, color: Colors.white),
     );
     } else {
-    String profileURL = snapshot.data!;
-    return CircleAvatar(backgroundImage: AssetImage(profileURL));
+    return CircleAvatar(backgroundImage: NetworkImage(appointment['prolileDocteur'] ));
     }
     },
     ),

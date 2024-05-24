@@ -10,10 +10,12 @@ class DatabaseService {
     required String specialization,
     required String hospital,
     required String userId,
-    required DateTime appointmentDateTime,
+    required DateTime appointmentDateTime, required prolileDocteur, required type,
   }) async {
     try {
       await _firestore.collection('agenda').add({
+        'prolileDocteur': prolileDocteur,
+        'type': type,
         'doctorName': doctorName,
         'specialization': specialization,
         'hospital': hospital,
