@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:lorem_ipsum_generator/lorem_ipsum_generator.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:toubibplus/backend/firebase/Firestore/rdv/Enregistrement_rdv.dart';
 import 'package:toubibplus/backend/firebase/authentification/AuthService_connexion.dart';
-import 'package:toubibplus/frontend/composants/tableau_rdv.dart';
 import '../animations/skeleton/skeleton_repres_docteurs_detailsdocteurs.dart';
 import '../composants/image_icone/imageicone.dart';
 
@@ -154,10 +152,6 @@ class _DetailsdocteursState extends State<Detailsdocteurs> {
                           const SizedBox(height: 10),
 
                           Text('${doctorDetails!['Description'] ?? 'Aucune description'}'),
-
-                          Text(
-                            LoremIpsumGenerator.generate(paragraphs: 1),
-                          ),
                         ],
                       ),
                     ),
